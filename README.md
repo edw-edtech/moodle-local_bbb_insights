@@ -67,17 +67,33 @@ sudo systemctl restart apache2
 
 ---
 
-### 2. Create MariaDB Database & User
+### 2. Log in & Create MariaDB Database & User
 
-Log into MariaDB and create a clean database for Moodle 5.2.2:
+1. **Log into MariaDB via Root Unix Socket:**
+   On Ubuntu, MariaDB uses `unix_socket` authentication for administrative access. Log into the MariaDB shell using `sudo`:
 
-```sql
-CREATE DATABASE moodle DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE USER 'moodleuser'@'localhost' IDENTIFIED BY 'YOUR_DATABASE_PASSWORD';
-GRANT ALL PRIVILEGES ON moodle.* TO 'moodleuser'@'localhost';
-FLUSH PRIVILEGES;
-EXIT;
-```
+   ```bash
+   sudo mariadb
+   ```
+
+   > [!NOTE]
+   > **Resolving `ERROR 1698 (28000): Access denied for user`**:
+   > Running `mariadb` directly without `sudo` from your standard user shell will fail with:
+   > ```text
+   > ERROR 1698 (28000): Access denied for user 'username'@'localhost'
+   > ```
+   > Always run `sudo mariadb` (or `sudo mysql`) to authenticate via the local root socket.
+
+2. **Execute Database & User Creation Statements:**
+   Inside the MariaDB prompt, create a clean database and dedicated user for Moodle 5.2.2:
+
+   ```sql
+   CREATE DATABASE moodle DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+   CREATE USER 'moodleuser'@'localhost' IDENTIFIED BY 'YOUR_DATABASE_PASSWORD';
+   GRANT ALL PRIVILEGES ON moodle.* TO 'moodleuser'@'localhost';
+   FLUSH PRIVILEGES;
+   EXIT;
+   ```
 
 ---
 
