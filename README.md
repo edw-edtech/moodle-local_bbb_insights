@@ -107,10 +107,23 @@ sudo systemctl restart apache2
    mkdir -p ~/dev/moodledata
    ```
 
-2. **Create Plugin Folder Directly in the Dev Tree:**
-   ```bash
-   mkdir -p ~/dev/moodle/local/bbb_insights
-   ```
+2. **Clone Plugin Repository or Symlink into the Dev Tree:**
+
+   * **Option A: Clone directly from GitHub into Moodle:**
+     ```bash
+     git clone https://github.com/edw-edtech/moodle-local_bbb_insights.git ~/dev/moodle/local/bbb_insights
+     ```
+
+   * **Option B: Symlink an existing local clone (e.g. `~/dev/moodle-local_bbb_insights`):**
+     If you have already cloned the repository into `~/dev/moodle-local_bbb_insights`, symlink it directly into Moodle:
+     ```bash
+     ln -s ~/dev/moodle-local_bbb_insights ~/dev/moodle/local/bbb_insights
+     ```
+
+   > [!NOTE]
+   > **When should the plugin be cloned?**
+   > - **Before running `install.php`**: Moodle will discover `local_bbb_insights` during initial installation and create all database tables automatically.
+   > - **After running `install.php`**: If Moodle is already installed, simply run `php admin/cli/upgrade.php` inside `~/dev/moodle` to create the plugin's tables and register scheduled tasks.
 
 3. **Run Non-Interactive Automated Moodle CLI Installation:**
    ```bash
