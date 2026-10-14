@@ -1,0 +1,211 @@
+<div class="bbb-insights-dashboard p-2">
+    <!-- Executive Header Banner -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 pb-2 border-bottom">
+        <div>
+            <div class="d-flex align-items-center gap-2">
+                <h3 class="mb-0 text-dark font-weight-bold tracking-tight">BigBlueButton Insights Control Center</h3>
+                <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-3 py-1 font-weight-bold small">v1.0 Free</span>
+            </div>
+            <p class="text-muted small mb-0 mt-1">Virtual classroom session intelligence, participant attendance tracking, and recording quota governance.</p>
+        </div>
+        <div class="d-flex align-items-center gap-2 mt-2 mt-md-0">
+            <span class="badge bg-secondary-subtle text-dark border border-secondary-subtle px-3 py-2 fs-6 rounded-pill shadow-sm d-flex align-items-center gap-2">
+                <i class="fa fa-server"></i> Free Local Engine
+            </span>
+        </div>
+    </div>
+
+    <!-- Engine Mode Alert -->
+    <div id="insights-notice-alert" class="alert alert-light border shadow-sm text-dark mb-4 rounded-4 p-3" role="alert">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+            <div class="d-flex align-items-center gap-2">
+                <div class="p-2 rounded-circle bg-primary text-white me-2 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;">
+                    <i class="fa fa-info-circle fs-5"></i>
+                </div>
+                <div>
+                    <div class="font-weight-bold">{{tier_notice}}</div>
+                    <div class="small text-muted">All session metrics, recording files, and attendee logs remain strictly inside your institutional Moodle server.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Metrics Cards Grid -->
+    <div class="row g-4 my-2">
+        <!-- Sessions Metric Card -->
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm rounded-4 h-100 bg-white overflow-hidden" style="border-left: 5px solid #0d6efd !important;">
+                <div class="card-body p-4 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-uppercase text-muted font-weight-bold small tracking-wider">Total Sessions</span>
+                            <span class="badge bg-primary-subtle text-primary rounded-pill px-2.5 py-1 small">Synced</span>
+                        </div>
+                        <div class="d-flex align-items-baseline gap-2 mb-1">
+                            <span class="display-5 font-weight-bold text-dark">{{session_count}}</span>
+                            <span class="fs-6 text-muted">classes held</span>
+                        </div>
+                    </div>
+                    <div class="mt-3 small text-muted d-flex justify-content-between align-items-center border-top pt-2">
+                        <a href="{{attendance_url}}" class="text-decoration-none fw-semibold">View Session Logs &rarr;</a>
+                        <i class="fa fa-video-camera text-primary opacity-50"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Attendees Metric Card -->
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm rounded-4 h-100 bg-white overflow-hidden" style="border-left: 5px solid #16a34a !important;">
+                <div class="card-body p-4 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-uppercase text-muted font-weight-bold small tracking-wider">Total Attendees</span>
+                            <span class="badge bg-success-subtle text-success rounded-pill px-2.5 py-1 small">Active</span>
+                        </div>
+                        <div class="d-flex align-items-baseline gap-2 mb-1">
+                            <span class="display-5 font-weight-bold text-dark">{{attendee_count}}</span>
+                            <span class="fs-6 text-muted">unique participants</span>
+                        </div>
+                    </div>
+                    <div class="mt-3 small text-muted d-flex justify-content-between align-items-center border-top pt-2">
+                        <a href="{{attendance_url}}" class="text-decoration-none fw-semibold text-success">View Attendance &rarr;</a>
+                        <i class="fa fa-users text-success opacity-50"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recording Storage Quota Card -->
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm rounded-4 h-100 bg-white overflow-hidden" style="border-left: 5px solid {{#is_quota_exceeded}}#dc3545{{/is_quota_exceeded}}{{^is_quota_exceeded}}#0891b2{{/is_quota_exceeded}} !important;">
+                <div class="card-body p-4 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-uppercase text-muted font-weight-bold small tracking-wider">Storage Footprint</span>
+                            <span class="badge {{#is_quota_exceeded}}bg-danger-subtle text-danger{{/is_quota_exceeded}}{{^is_quota_exceeded}}bg-info-subtle text-info{{/is_quota_exceeded}} rounded-pill px-2.5 py-1 small">
+                                {{quota_percent}}% used
+                            </span>
+                        </div>
+                        <div class="d-flex align-items-baseline gap-2 mb-1">
+                            <span class="display-6 font-weight-bold text-dark">{{storage_used_label}}</span>
+                            <span class="fs-6 text-muted">/ {{quota_label}}</span>
+                        </div>
+                        <div class="progress mt-3 rounded-pill" style="height: 6px; background-color: #f1f5f9;">
+                            <div class="progress-bar {{#is_quota_exceeded}}bg-danger{{/is_quota_exceeded}}{{^is_quota_exceeded}}bg-info{{/is_quota_exceeded}} rounded-pill" role="progressbar" style="width: {{quota_percent}}%;" aria-valuenow="{{quota_percent}}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <div class="mt-3 small text-muted d-flex justify-content-between align-items-center border-top pt-2">
+                        <a href="{{recordings_url}}" class="text-decoration-none fw-semibold text-info">Manage Quota &rarr;</a>
+                        <i class="fa fa-hdd-o text-info opacity-50"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Average Duration Card -->
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm rounded-4 h-100 bg-white overflow-hidden" style="border-left: 5px solid #f59e0b !important;">
+                <div class="card-body p-4 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-uppercase text-muted font-weight-bold small tracking-wider">Avg Session Time</span>
+                            <span class="badge bg-warning-subtle text-warning rounded-pill px-2.5 py-1 small">Participation</span>
+                        </div>
+                        <div class="d-flex align-items-baseline gap-2 mb-1">
+                            <span class="display-5 font-weight-bold text-dark">{{avg_duration_label}}</span>
+                            <span class="fs-6 text-muted">per attendee</span>
+                        </div>
+                    </div>
+                    <div class="mt-3 small text-muted d-flex justify-content-between align-items-center border-top pt-2">
+                        <a href="{{reports_url}}" class="text-decoration-none fw-semibold text-warning">Analytics Trends &rarr;</a>
+                        <i class="fa fa-clock-o text-warning opacity-50"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Tables Grid -->
+    <div class="row g-4 my-3">
+        <!-- Recent Classroom Sessions -->
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4 bg-white overflow-hidden">
+                <div class="card-header bg-white border-bottom p-3 d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0 font-weight-bold text-dark">Recent BigBlueButton Sessions</h5>
+                    <a href="{{attendance_url}}" class="btn btn-sm btn-outline-primary">View All</a>
+                </div>
+                <div class="card-body p-0 table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light small text-uppercase">
+                            <tr>
+                                <th class="ps-3">Classroom / Meeting</th>
+                                <th>Course</th>
+                                <th>Date & Time</th>
+                                <th class="text-center">Attendees</th>
+                                <th class="text-center">Recorded</th>
+                                <th class="text-end pe-3">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#recent_sessions}}
+                            <tr>
+                                <td class="ps-3 fw-bold text-dark">{{name}}</td>
+                                <td><span class="badge bg-light text-dark border">{{coursename}}</span></td>
+                                <td class="small text-muted">{{date_label}}</td>
+                                <td class="text-center"><span class="badge bg-primary-subtle text-primary rounded-pill px-2.5">{{participantcount}}</span></td>
+                                <td class="text-center">
+                                    {{#isrecorded}}
+                                    <span class="badge bg-success-subtle text-success"><i class="fa fa-check"></i> Yes</span>
+                                    {{/isrecorded}}
+                                    {{^isrecorded}}
+                                    <span class="badge bg-secondary-subtle text-muted">No</span>
+                                    {{/isrecorded}}
+                                </td>
+                                <td class="text-end pe-3">
+                                    <a href="{{session_url}}" class="btn btn-sm btn-light border">Attendance</a>
+                                </td>
+                            </tr>
+                            {{/recent_sessions}}
+                            {{^has_recent}}
+                            <tr>
+                                <td colspan="6" class="text-center py-4 text-muted">No virtual classroom sessions found yet. Click 'Sync Insights Now' above to pull recent activity.</td>
+                            </tr>
+                            {{/has_recent}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Courses by BBB Usage -->
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm rounded-4 bg-white overflow-hidden">
+                <div class="card-header bg-white border-bottom p-3">
+                    <h5 class="mb-0 font-weight-bold text-dark">Top Courses by BBB Usage</h5>
+                </div>
+                <div class="card-body p-0">
+                    <ul class="list-group list-group-flush">
+                        {{#top_courses}}
+                        <li class="list-group-item p-3 d-flex justify-content-between align-items-center">
+                            <div>
+                                <a href="{{course_url}}" class="fw-bold text-decoration-none text-dark">{{fullname}}</a>
+                                <div class="small text-muted">{{totalsessions}} classroom sessions</div>
+                            </div>
+                            <span class="badge bg-success-subtle text-success rounded-pill px-3 py-2">
+                                {{totalparticipants}} students
+                            </span>
+                        </li>
+                        {{/top_courses}}
+                        {{^has_top_courses}}
+                        <li class="list-group-item p-4 text-center text-muted">
+                            No course engagement data recorded yet.
+                        </li>
+                        {{/has_top_courses}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,39 @@
+/**
+ * BigBlueButton Insights Custom Styles
+ *
+ * @package   local_bbb_insights
+ * @copyright 2026 Emanuel Dickson Wanyonyi <wanyonyi.d.emanuel@gmail.com>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+.bbb-insights-dashboard .card {
+    transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.bbb-insights-dashboard .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08) !important;
+}
+
+.bbb-insights-dashboard .tracking-tight {
+    letter-spacing: -0.025em;
+}
+
+.bbb-insights-dashboard .tracking-wider {
+    letter-spacing: 0.05em;
+}
+
+.bbb-insights-dashboard .progress-bar {
+    transition: width 0.6s ease;
+}
+
+.bbb-insights-nav .nav-link {
+    transition: all 0.2s ease;
+}
+
+.bbb-insights-table th {
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+}
+
