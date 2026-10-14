@@ -35,7 +35,7 @@ This plugin provides comprehensive academic reporting, engagement intelligence, 
 
 ---
 
-## Local Development Setup (`~/dev/moodle` — Ubuntu 24.04 LTS)
+## Local Development Setup (`~/dev/moodle` — Ubuntu 26.04 LTS)
 
 This setup runs Moodle **v5.2.2** and your plugin directly out of your user development directory (`~/dev`), eliminating all `sudo` permission conflicts during development.
 
@@ -50,7 +50,7 @@ sudo apt update && sudo apt install -y \
     php-intl php-soap git unzip
 ```
 
-Configure PHP execution limits in `/etc/php/8.3/apache2/php.ini` and `/etc/php/8.3/cli/php.ini`:
+Configure PHP execution limits in `/etc/php/8.5/apache2/php.ini` (or `/etc/php/8.3/apache2/php.ini`) and `cli/php.ini`:
 
 ```ini
 max_execution_time = 300
